@@ -14,6 +14,7 @@
 // Variables
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
+const stars = document.querySelectorAll('.fa-star')
 var moves = 0;
 var cardsOpen = [];
 
@@ -36,10 +37,8 @@ function match() {
   }
 }
 
-// If cards don't match, error state
+// If cards doesn't match, error state
 function noMatch() {
-  // @TODO add timer and error state
-
   cardsOpen[0].classList.add('no-match');
   cardsOpen[1].classList.add('no-match');
 
@@ -48,6 +47,23 @@ function noMatch() {
     cardsOpen[1].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen = [];
   }, 1000)
+}
+
+// Stars rating depending of the moves made
+function rating() {
+  if (moves > 15) {
+    stars[0].classList.remove('fa-star');
+    stars[0].classList.add('fa-star-o');
+    if (moves > 20) {
+      stars[1].classList.remove('fa-star');
+      stars[1].classList.add('fa-star-o');
+      if (moves > 30) {
+        stars[2].classList.remove('fa-star');
+        stars[2].classList.add('fa-star-o');
+        // @TODO Add modal saying you lost
+      }
+    }
+  }
 }
 
 // Shuffle cards so it doesn´t get repetitive. Function from http://stackoverflow.com/a/2450976
@@ -74,5 +90,6 @@ for (let i = 0; i < cards.length; i++) {
     cardsOpen.push(this);
 
       match();
+      rating();
   });
 }
