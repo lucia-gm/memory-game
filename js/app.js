@@ -14,11 +14,23 @@
 // Variables
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
-const stars = document.querySelectorAll('.fa-star')
+const stars = document.querySelectorAll('.fa-star');
+const seconds = document.getElementById("seconds");
+const minutes = document.getElementById("minutes");
 var moves = 0;
 var cardsOpen = [];
+let sec = 0;
 
 
+// Implementing the timer. Function inspired by https://stackoverflow.com/questions/5517597/
+function startTimer() {
+  function pad ( val ) { return val > 9 ? val : "0" + val; }
+
+  var timer = setInterval( function(){
+    seconds.innerHTML = pad(++sec % 60);
+    minutes.innerHTML = pad(parseInt(sec / 60));
+  }, 1000);
+}
 
 // Check if cards match
 function match() {
@@ -82,6 +94,11 @@ function shuffle(array) {
 }
 
 
+/*
+ * Starting the game
+ */
+
+startTimer();
 
 // Listening if a card is clicked
 for (let i = 0; i < cards.length; i++) {
