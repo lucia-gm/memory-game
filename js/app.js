@@ -13,6 +13,8 @@
 
 // Variables
 const cards = document.getElementsByClassName('card');
+const movesCounter = document.querySelector('.moves');
+var moves = 0;
 var cardsOpen = [];
 
 
@@ -29,6 +31,8 @@ function match() {
     } else {
       noMatch();
     }
+    moves += 1;
+    movesCounter.innerText = moves;
   }
 }
 
