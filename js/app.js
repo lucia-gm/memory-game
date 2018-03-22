@@ -36,10 +36,14 @@ function match() {
 function noMatch() {
   // @TODO add timer and error state
 
-  for (let i = 0; i < cardsOpen.length; i++) {
-    cardsOpen[i].classList.remove('open', 'show');
-  }
-  cardsOpen = [];
+  cardsOpen[0].classList.add('no-match');
+  cardsOpen[1].classList.add('no-match');
+
+  setTimeout(function() {
+    cardsOpen[0].classList.remove('open', 'show', 'no-match', 'no-click');
+    cardsOpen[1].classList.remove('open', 'show', 'no-match', 'no-click');
+    cardsOpen = [];
+  }, 1000)
 }
 
 // Shuffle cards so it doesn´t get repetitive. Function from http://stackoverflow.com/a/2450976
@@ -62,12 +66,9 @@ function shuffle(array) {
 // Listening if a card is clicked
 for (let i = 0; i < cards.length; i++) {
   cards[i].addEventListener('click', function flipCard() {
-
-    if (cards[i] !== cardsOpen[0]) { // Checking if it is the same card
-      cards[i].classList.add('open', 'show');
-      cardsOpen.push(this);
+    cards[i].classList.add('open', 'show', 'no-click');
+    cardsOpen.push(this);
 
       match();
-    }
   });
 }
