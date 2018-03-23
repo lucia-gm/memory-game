@@ -12,13 +12,14 @@
 
 
 // Variables
-const icons = ['.fa-leaf', '.fa-cloud', '.fa-tree', '.fa-paw', '.fa-pagelines', '.fa-bug', '.fa-sun-o', '.fa-binoculars','.fa-leaf', '.fa-cloud', '.fa-tree', '.fa-paw', '.fa-pagelines', '.fa-bug', '.fa-sun-o', '.fa-binoculars'];
+const icons = ['fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars', 'fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars'];
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
 const seconds = document.getElementById('seconds');
 const minutes = document.getElementById('minutes');
 const repeat = document.querySelector('.fa-repeat');
+var deck = document.querySelector('.deck');
 var moves = 0;
 var cardsOpen = [];
 let sec = 0;
@@ -95,6 +96,19 @@ function shuffle(array) {
   return array;
 }
 
+// Updating the deck with the new cardsOpen
+function newDeck() {
+  newIcons = shuffle(icons);
+  let ul = '';
+
+  for (let i = 0; i < newIcons.length; i++) {
+    let li = '<li class="card"><i class="fa ' + newIcons[i] + '"></i></li>'
+    ul += li;
+  }
+  
+  deck.innerHTML = ul;
+}
+
 // Restarting the game
 var reset = function resetGame() {
   moves = 0;
@@ -112,7 +126,7 @@ var reset = function resetGame() {
     stars[i].classList.add('fa-star');
   }
 
-  shuffle(cards);
+  newDeck();
 }
 
 /*
@@ -127,8 +141,8 @@ for (let i = 0; i < cards.length; i++) {
     cards[i].classList.add('open', 'show', 'no-click');
     cardsOpen.push(this);
 
-      match();
-      rating();
+    match();
+    rating();
   });
 }
 
