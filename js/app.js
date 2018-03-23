@@ -12,6 +12,7 @@
 
 
 // Variables
+const icons = ['.fa-leaf', '.fa-cloud', '.fa-tree', '.fa-paw', '.fa-pagelines', '.fa-bug', '.fa-sun-o', '.fa-binoculars','.fa-leaf', '.fa-cloud', '.fa-tree', '.fa-paw', '.fa-pagelines', '.fa-bug', '.fa-sun-o', '.fa-binoculars'];
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
@@ -94,7 +95,7 @@ function shuffle(array) {
   return array;
 }
 
-// Reseting the game
+// Restarting the game
 var reset = function resetGame() {
   moves = 0;
   movesCounter.innerText = 0;
