@@ -15,8 +15,9 @@
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
-const seconds = document.getElementById("seconds");
-const minutes = document.getElementById("minutes");
+const seconds = document.getElementById('seconds');
+const minutes = document.getElementById('minutes');
+const repeat = document.querySelector('.fa-repeat');
 var moves = 0;
 var cardsOpen = [];
 let sec = 0;
@@ -24,7 +25,7 @@ let sec = 0;
 
 // Implementing the timer. Function inspired by https://stackoverflow.com/questions/5517597/
 function startTimer() {
-  function pad ( val ) { return val > 9 ? val : "0" + val; }
+  function pad(val) { return val > 9 ? val : '0' + val; }
 
   var timer = setInterval( function(){
     seconds.innerHTML = pad(++sec % 60);
@@ -93,6 +94,25 @@ function shuffle(array) {
   return array;
 }
 
+// Reseting the game
+var reset = function resetGame() {
+  moves = 0;
+  movesCounter.innerText = 0;
+  sec = 0;
+  seconds.innerText = '00';
+  minutes.innerText = '00';
+
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].classList.remove('open', 'show', 'no-click', 'match');
+  }
+
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].classList.remove('fa-star-o');
+    stars[i].classList.add('fa-star');
+  }
+
+  shuffle(cards);
+}
 
 /*
  * Starting the game
@@ -110,3 +130,6 @@ for (let i = 0; i < cards.length; i++) {
       rating();
   });
 }
+
+//Listening if reset is clicked
+repeat.addEventListener('click', reset);
