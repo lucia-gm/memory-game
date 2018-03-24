@@ -106,7 +106,7 @@ h1 {
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.stars li {
     list-style: none;
     display: inline-block;
 }
@@ -119,4 +119,55 @@ h1 {
 #timer {
     display: inline-block;
     padding-left: 60px;
+}
+
+/*
+ * Styles for the Modal
+ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    margin: 2em auto;
+    padding: 0 1em;
+    background-color: rgb(142, 39, 176, 0.92);
+    border: 1px solid blue;
+    text-align: center;
+}
+
+.modal-title {
+    margin: 0;
+    padding: 1em;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.stars {
+    padding: 0;
+}
+
+.play-button {
+    margin-bottom: 1em;
 }

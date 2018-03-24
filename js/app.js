@@ -16,12 +16,22 @@ const icons = ['fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-b
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
+const starsContainer = document.querySelector('.stars');
+const timeContainer = document.getElementById('timer');
 const seconds = document.getElementById('seconds');
 const minutes = document.getElementById('minutes');
 const repeat = document.querySelector('.fa-repeat');
+const modal = document.getElementById('myModal');
+const span = document.getElementsByClassName('close');
+const play = document.querySelector('.play-button');
+var finalStars = document.querySelector('.final-stars');
+var finalMoves = document.querySelector('.final-moves');
+var finalTime = document.querySelector('.final-time');
 var deck = document.querySelector('.deck');
 var moves = 0;
 var cardsOpen = [];
+var matchings = 0;
+var timer;
 let sec = 0;
 
 
@@ -29,10 +39,18 @@ let sec = 0;
 function startTimer() {
   function pad(val) { return val > 9 ? val : '0' + val; }
 
-  var timer = setInterval( function(){
+  timer = setInterval( function(){
     seconds.innerHTML = pad(++sec % 60);
     minutes.innerHTML = pad(parseInt(sec / 60));
   }, 1000);
+}
+
+function flipCard() {
+  this.classList.add('open', 'show', 'no-click');
+  cardsOpen.push(this);
+
+  match();
+  rating();
 }
 
 // Check if cards match
@@ -43,7 +61,13 @@ function match() {
         cardsOpen[i].classList.add('match');
         cardsOpen[i].classList.remove('open', 'show');
       }
+
       cardsOpen = [];
+      matchings += 1;
+
+      if (matchings === 8) {
+        winGame();
+      }
     } else {
       noMatch();
     }
@@ -81,6 +105,29 @@ function rating() {
   }
 }
 
+// When the user win, display congratulations modal
+function winGame() {
+  clearInterval(timer);
+  finalStars.innerHTML = starsContainer.innerHTML;
+  finalMoves.innerText = moves;
+  finalTime.innerText = timeContainer.innerText;
+  modal.style.display = 'block';
+
+  // When the user clicks on <span> (x), close the modal
+  span[0].onclick = function() {
+      modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
+  play.addEventListener('click', resetGame);
+}
+
 // Shuffle cards so it doesn´t get repetitive. Function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -105,17 +152,22 @@ function newDeck() {
     let li = '<li class="card"><i class="fa ' + newIcons[i] + '"></i></li>'
     ul += li;
   }
-  
+
   deck.innerHTML = ul;
+  // Listening if a card is clicked
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', flipCard);
+  }
 }
 
 // Restarting the game
-var reset = function resetGame() {
+function resetGame() {
   moves = 0;
   movesCounter.innerText = 0;
   sec = 0;
   seconds.innerText = '00';
   minutes.innerText = '00';
+  modal.style.display = "none";
 
   for (let i = 0; i < cards.length; i++) {
     cards[i].classList.remove('open', 'show', 'no-click', 'match');
@@ -127,6 +179,7 @@ var reset = function resetGame() {
   }
 
   newDeck();
+  startTimer();
 }
 
 /*
@@ -134,17 +187,9 @@ var reset = function resetGame() {
  */
 
 startTimer();
+newDeck();
 
-// Listening if a card is clicked
-for (let i = 0; i < cards.length; i++) {
-  cards[i].addEventListener('click', function flipCard() {
-    cards[i].classList.add('open', 'show', 'no-click');
-    cardsOpen.push(this);
 
-    match();
-    rating();
-  });
-}
 
 //Listening if reset is clicked
-repeat.addEventListener('click', reset);
+repeat.addEventListener('click', resetGame);
