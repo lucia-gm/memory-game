@@ -33,6 +33,7 @@ var cardsOpen = [];
 var matchings = 0;
 var timer;
 let sec = 0;
+let canPlay = true;
 
 
 // Implementing the timer. Function inspired by https://stackoverflow.com/questions/5517597/
@@ -46,11 +47,13 @@ function startTimer() {
 }
 
 function flipCard() {
-  this.classList.add('open', 'show', 'no-click');
-  cardsOpen.push(this);
+  if (canPlay === true) {
+    this.classList.add('open', 'show', 'no-click');
+    cardsOpen.push(this);
 
-  match();
-  rating();
+    match();
+    rating();
+  }
 }
 
 // Check if cards match
@@ -80,11 +83,13 @@ function match() {
 function noMatch() {
   cardsOpen[0].classList.add('no-match');
   cardsOpen[1].classList.add('no-match');
+  canPlay = false;
 
   setTimeout(function() {
     cardsOpen[0].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen[1].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen = [];
+    canPlay = true;
   }, 1000)
 }
 
