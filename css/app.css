@@ -79,37 +79,18 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
-    animation-name: match;
-    animation-duration: 0.3s;
-    animation-timing-function: ease-out;
+    animation: match ease-out 0.3s;
 }
 
 .deck .card.no-match {
     background-color: #ea3c53;
-    animation-name: nomatch;
-    animation-duration: 0.3s;
+    animation: nomatch 0.3s;
 }
 
 .deck .card.no-click {
     pointer-events: none;
 }
 
-/*
- * The animation code
- */
-
- @keyframes match {
-   0% {transform: scale(1, 1);}
-   25% {transform: scale(1.2, 1.2);}
-   100% {transform: scale(1, 1);}
- }
-
-@keyframes nomatch {
-  0% {transform: translate(0,0);}
-  25% {transform: translate(30px,0);}
-  50% {transform: translate(-30px,0);}
-  100% {transform: translate(0,0);}
-}
 /*
  * Styles for the Score Panel
  */
@@ -118,6 +99,7 @@ h1 {
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
+    font-size: 1.2em;
 }
 
 .score-panel .stars {
@@ -159,16 +141,21 @@ h1 {
 }
 
 .modal-content {
-    margin: 2em auto;
+    margin: 200px auto;
     padding: 0 1em;
-    background-color: rgb(142, 39, 176, 0.92);
-    border: 1px solid blue;
+    width: 350px;
+    background-color: #fff;
+    border: 1px solid #02ccba59;
+    box-shadow: 3px 2px 20px 0;
     text-align: center;
+    animation: animatemodal 0.4s;
 }
 
 .modal-title {
+    font-size: 2em;
+    color: #02ccba;
     margin: 0;
-    padding: 1em;
+    padding-top: 1em;
 }
 
 .close {
@@ -185,10 +172,38 @@ h1 {
     cursor: pointer;
 }
 
-.stars {
+.final-stars {
+    color: #f3f307;
+    font-size: 2em;
     padding: 0;
+    margin: 20px 0;
 }
 
 .play-button {
-    margin-bottom: 1em;
+    color: #fff;
+    background-color: #eb09ef;
+    font-size: 1em;
+    padding: 7px 15px;
+    margin: 1em 0 2em 0;
+    border-radius: 11px;
+}
+
+/*
+ * The animation code
+ */
+
+@keyframes match {
+   0%, 100% {transform: scale(1)}
+   25% {transform: scale(1.2)}
+ }
+
+@keyframes nomatch {
+   0%, 100% {transform: translate(0,0)}
+   25% {transform: translate(30px,0)}
+   50% {transform: translate(-30px,0)}
+}
+
+@keyframes animatemodal {
+   from {top: -300px; opacity: 0}
+   to {top: 0; opacity: 1}
 }
