@@ -17,7 +17,7 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ffffff url('../img/gaming-pattern.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -40,7 +40,7 @@ h1 {
 .deck {
     width: 660px;
     min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #5909f5d9 20%, #d43f069e 100%);
     padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -79,16 +79,37 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    animation-name: match;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
 }
 
 .deck .card.no-match {
-    background-color: #f24333;
+    background-color: #ea3c53;
+    animation-name: nomatch;
+    animation-duration: 0.3s;
 }
 
 .deck .card.no-click {
     pointer-events: none;
 }
 
+/*
+ * The animation code
+ */
+
+ @keyframes match {
+   0% {transform: scale(1, 1);}
+   25% {transform: scale(1.2, 1.2);}
+   100% {transform: scale(1, 1);}
+ }
+
+@keyframes nomatch {
+  0% {transform: translate(0,0);}
+  25% {transform: translate(30px,0);}
+  50% {transform: translate(-30px,0);}
+  100% {transform: translate(0,0);}
+}
 /*
  * Styles for the Score Panel
  */
