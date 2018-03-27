@@ -207,3 +207,25 @@ h1 {
    from {top: -300px; opacity: 0}
    to {top: 0; opacity: 1}
 }
+
+
+/*
+ * Media Query
+ */
+
+ @media screen and (max-width: 700px) {
+   .score-panel {
+     width: 310px;
+   }
+
+   .deck {
+     width: 310px;
+     min-height: 320px;
+     padding: 12px;
+   }
+
+   .deck .card {
+     width: 65px;
+     height: 65px;
+   }
+ }
