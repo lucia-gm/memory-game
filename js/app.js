@@ -96,7 +96,7 @@ function noMatch() {
       cards[i].classList.remove('no-play')
     }
     canPlay = true;
-  }, 800)
+  }, 700)
 }
 
 // Stars rating depending of the moves made
@@ -122,17 +122,17 @@ function winGame() {
   finalStars.innerHTML = starsContainer.innerHTML;
   finalMoves.innerText = moves;
   finalTime.innerText = timeContainer.innerText;
-  modal.style.display = 'block';
+  modal.classList.remove('hidden');
 
   // When the user clicks on <span> (x), close the modal
   span[0].onclick = function() {
-      modal.style.display = "none";
+      modal.classList.add('hidden');
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
       if (event.target == modal) {
-          modal.style.display = "none";
+          modal.classList.add('hidden');
       }
   }
 
@@ -180,7 +180,7 @@ function resetGame() {
   seconds.innerText = '00';
   minutes.innerText = '00';
   clearInterval(timer);
-  modal.style.display = "none";
+  modal.classList.add('hidden');
 
   for (let i = 0; i < cards.length; i++) {
     cards[i].classList.remove('open', 'show', 'no-click', 'match');
