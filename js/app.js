@@ -170,6 +170,7 @@ function resetGame() {
   moves = 0;
   movesCounter.innerText = 0;
   sec = 0;
+  matchings = 0;
   seconds.innerText = '00';
   minutes.innerText = '00';
   modal.style.display = "none";
