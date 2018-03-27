@@ -150,7 +150,7 @@ function noMatch() {
   audioNoMatch.play();
 
   for (let i = 0; i < cards.length; i++) {
-    cards[i].classList.add('no-play');
+    cards[i].classList.add('no-pointer');
   }
 
   // After show the error state, hide the cards
@@ -159,7 +159,7 @@ function noMatch() {
     cardsOpen[1].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen = [];
     for (let i = 0; i < cards.length; i++) {
-      cards[i].classList.remove('no-play');
+      cards[i].classList.remove('no-pointer');
     }
     canPlay = true;
   }, 700);
