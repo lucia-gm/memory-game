@@ -84,26 +84,32 @@ function noMatch() {
   cardsOpen[0].classList.add('no-match');
   cardsOpen[1].classList.add('no-match');
   canPlay = false;
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].classList.add('no-play');
+  }
 
   setTimeout(function() {
     cardsOpen[0].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen[1].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen = [];
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.remove('no-play')
+    }
     canPlay = true;
-  }, 1000)
+  }, 800)
 }
 
 // Stars rating depending of the moves made
 function rating() {
   if (moves > 15) {
-    stars[0].classList.remove('fa-star');
-    stars[0].classList.add('fa-star-o');
+    stars[2].classList.remove('fa-star');
+    stars[2].classList.add('fa-star-o');
     if (moves > 20) {
       stars[1].classList.remove('fa-star');
       stars[1].classList.add('fa-star-o');
       if (moves > 30) {
-        stars[2].classList.remove('fa-star');
-        stars[2].classList.add('fa-star-o');
+        stars[0].classList.remove('fa-star');
+        stars[0].classList.add('fa-star-o');
         // @TODO Add modal saying you lost
       }
     }

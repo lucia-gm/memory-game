@@ -91,6 +91,10 @@ h1 {
     pointer-events: none;
 }
 
+.deck .card.no-play {
+    cursor: default;
+}
+
 /*
  * Styles for the Score Panel
  */
@@ -159,7 +163,7 @@ h1 {
 }
 
 .close {
-    color: #aaaaaa;
+    color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -186,6 +190,10 @@ h1 {
     padding: 7px 15px;
     margin: 1em 0 2em 0;
     border-radius: 11px;
+}
+
+.play-button:hover {
+    cursor: pointer;
 }
 
 /*
