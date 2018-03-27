@@ -185,6 +185,7 @@ function newDeck() {
 
 // Restarting the game
 function resetGame() {
+  cardsOpen = [];
   moves = 0;
   movesCounter.innerText = 0;
   sec = 0;
