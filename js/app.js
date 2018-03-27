@@ -64,6 +64,9 @@ function flipCard() {
 // Check if cards match
 function match() {
   if (cardsOpen.length === 2) {
+    moves += 1;
+    movesCounter.innerText = moves;
+
     if (cardsOpen[0].isEqualNode(cardsOpen[1])) {
       for (let i = 0; i < cardsOpen.length; i++) {
         cardsOpen[i].classList.add('match');
@@ -80,8 +83,6 @@ function match() {
     } else {
       noMatch();
     }
-    moves += 1;
-    movesCounter.innerText = moves;
   }
   else {
     audioClick.play();
