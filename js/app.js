@@ -179,6 +179,7 @@ function resetGame() {
   matchings = 0;
   seconds.innerText = '00';
   minutes.innerText = '00';
+  clearInterval(timer);
   modal.style.display = "none";
 
   for (let i = 0; i < cards.length; i++) {
