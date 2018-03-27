@@ -1,18 +1,15 @@
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ * Variables
  */
 
-
-
-// Variables
+// Resources
 const icons = ['fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars', 'fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars'];
+const audioClick = new Audio('sound/click.wav');
+const audioMatch = new Audio('sound/match.wav');
+const audioNoMatch = new Audio('sound/nomatch.wav');
+const audioWin = new Audio('sound/win.wav');
+
+ // DOM Selecetors
 const cards = document.getElementsByClassName('card');
 const movesCounter = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
@@ -20,28 +17,78 @@ const starsContainer = document.querySelector('.stars');
 const timeContainer = document.getElementById('timer');
 const seconds = document.getElementById('seconds');
 const minutes = document.getElementById('minutes');
-const repeat = document.querySelector('.fa-repeat');
+const restart = document.querySelector('.fa-repeat');
 const modal = document.getElementById('myModal');
 const span = document.getElementsByClassName('close');
 const play = document.querySelector('.play-button');
-var finalStars = document.querySelector('.final-stars');
-var finalMoves = document.querySelector('.final-moves');
-var finalTime = document.querySelector('.final-time');
-var deck = document.querySelector('.deck');
-var moves = 0;
-var cardsOpen = [];
-var matchings = 0;
-var timer;
+const finalStars = document.querySelector('.final-stars');
+const finalMoves = document.querySelector('.final-moves');
+const finalTime = document.querySelector('.final-time');
+const deck = document.querySelector('.deck');
+
+// Logical variables
+let moves = 0;
+let cardsOpen = [];
+let matchings = 0;
+let timer;
 let sec = 0;
 let canPlay = true;
 
-const audioClick = new Audio('sound/click.wav');
-const audioMatch = new Audio('sound/match.wav');
-const audioNoMatch = new Audio('sound/nomatch.wav');
-const audioWin = new Audio('sound/win.wav');
 
 
-// Implementing the timer. Function inspired by https://stackoverflow.com/questions/5517597/
+/*
+ * Starting the game
+ */
+
+// Create a new deck
+newDeck();
+
+// if restart is clicked, reset the game
+restart.addEventListener('click', resetGame);
+
+
+
+/*
+ * Functions
+ */
+
+// Shuffle cards so it doesn´t get repetitive. Function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+   randomIndex = Math.floor(Math.random() * currentIndex);
+   currentIndex -= 1;
+   temporaryValue = array[currentIndex];
+   array[currentIndex] = array[randomIndex];
+   array[randomIndex] = temporaryValue;
+  }
+
+ return array;
+}
+
+
+// Generate a new deck with the shuffled cards and the game start
+function newDeck() {
+  let newIcons = shuffle(icons);
+  let ul = '';
+
+  for (let i = 0; i < newIcons.length; i++) {
+    let li = '<li class="card"><i class="fa ' + newIcons[i] + '"></i></li>'
+    ul += li;
+  }
+
+  deck.innerHTML = ul;
+  startTimer();
+
+  // if a card is clicked, flip the card
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', flipCard);
+  }
+}
+
+
+// Initiate the timer. Function inspired by https://stackoverflow.com/questions/5517597/
 function startTimer() {
   function pad(val) { return val > 9 ? val : '0' + val; }
 
@@ -51,45 +98,51 @@ function startTimer() {
   }, 1000);
 }
 
+
+// Show the card, if two cards are open check if it is a match and update the rating
 function flipCard() {
   if (canPlay === true) {
     this.classList.add('open', 'show', 'no-click');
     cardsOpen.push(this);
 
-    match();
-    rating();
-  }
-}
+    if (cardsOpen.length === 2) {
+      moves += 1;
+      movesCounter.innerText = moves;
 
-// Check if cards match
-function match() {
-  if (cardsOpen.length === 2) {
-    moves += 1;
-    movesCounter.innerText = moves;
+      if (cardsOpen[0].isEqualNode(cardsOpen[1])) {
+        match();
 
-    if (cardsOpen[0].isEqualNode(cardsOpen[1])) {
-      for (let i = 0; i < cardsOpen.length; i++) {
-        cardsOpen[i].classList.add('match');
-        cardsOpen[i].classList.remove('open', 'show');
+      } else {
+        noMatch();
       }
 
-      cardsOpen = [];
-      matchings += 1;
-      audioMatch.play();
+      rating();
 
-      if (matchings === 8) {
-        winGame();
-      }
     } else {
-      noMatch();
+      audioClick.play();
     }
   }
-  else {
-    audioClick.play();
+}
+
+
+// If cards match, display match state and check if user has won
+function match() {
+  for (let i = 0; i < cardsOpen.length; i++) {
+    cardsOpen[i].classList.add('match');
+    cardsOpen[i].classList.remove('open', 'show');
+  }
+
+  cardsOpen = [];
+  matchings += 1;
+  audioMatch.play();
+
+  if (matchings === 8) {
+    winGame();
   }
 }
 
-// If cards doesn't match, error state
+
+// If cards doesn't match, display error state
 function noMatch() {
   cardsOpen[0].classList.add('no-match');
   cardsOpen[1].classList.add('no-match');
@@ -100,18 +153,20 @@ function noMatch() {
     cards[i].classList.add('no-play');
   }
 
+  // After show the error state, hide the cards
   setTimeout(function() {
     cardsOpen[0].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen[1].classList.remove('open', 'show', 'no-match', 'no-click');
     cardsOpen = [];
     for (let i = 0; i < cards.length; i++) {
-      cards[i].classList.remove('no-play')
+      cards[i].classList.remove('no-play');
     }
     canPlay = true;
-  }, 700)
+  }, 700);
 }
 
-// Stars rating depending of the moves made
+
+// Update the stars rating depending on the moves made
 function rating() {
   if (moves > 15) {
     stars[2].classList.remove('fa-star');
@@ -128,7 +183,8 @@ function rating() {
   }
 }
 
-// When the user win, display congratulations modal
+
+// When the user wins, display congratulations modal
 function winGame() {
   clearInterval(timer);
   finalStars.innerHTML = starsContainer.innerHTML;
@@ -149,42 +205,12 @@ function winGame() {
       }
   }
 
+  // When the user click on play again, restart the game
   play.addEventListener('click', resetGame);
 }
 
-// Shuffle cards so it doesn´t get repetitive. Function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
 
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-// Updating the deck with the new cardsOpen
-function newDeck() {
-  newIcons = shuffle(icons);
-  let ul = '';
-
-  for (let i = 0; i < newIcons.length; i++) {
-    let li = '<li class="card"><i class="fa ' + newIcons[i] + '"></i></li>'
-    ul += li;
-  }
-
-  deck.innerHTML = ul;
-  // Listening if a card is clicked
-  for (let i = 0; i < cards.length; i++) {
-    cards[i].addEventListener('click', flipCard);
-  }
-}
-
-// Restarting the game
+// Restart the game: generate new deck, reset score panel and logical variables
 function resetGame() {
   cardsOpen = [];
   moves = 0;
@@ -206,17 +232,4 @@ function resetGame() {
   }
 
   newDeck();
-  startTimer();
 }
-
-/*
- * Starting the game
- */
-
-startTimer();
-newDeck();
-
-
-
-//Listening if reset is clicked
-repeat.addEventListener('click', resetGame);
