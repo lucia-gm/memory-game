@@ -35,6 +35,11 @@ var timer;
 let sec = 0;
 let canPlay = true;
 
+const audioClick = new Audio('sound/click.wav');
+const audioMatch = new Audio('sound/match.wav');
+const audioNoMatch = new Audio('sound/nomatch.wav');
+const audioWin = new Audio('sound/win.wav');
+
 
 // Implementing the timer. Function inspired by https://stackoverflow.com/questions/5517597/
 function startTimer() {
@@ -67,6 +72,7 @@ function match() {
 
       cardsOpen = [];
       matchings += 1;
+      audioMatch.play();
 
       if (matchings === 8) {
         winGame();
@@ -77,6 +83,9 @@ function match() {
     moves += 1;
     movesCounter.innerText = moves;
   }
+  else {
+    audioClick.play();
+  }
 }
 
 // If cards doesn't match, error state
@@ -84,6 +93,8 @@ function noMatch() {
   cardsOpen[0].classList.add('no-match');
   cardsOpen[1].classList.add('no-match');
   canPlay = false;
+  audioNoMatch.play();
+
   for (let i = 0; i < cards.length; i++) {
     cards[i].classList.add('no-play');
   }
@@ -123,6 +134,7 @@ function winGame() {
   finalMoves.innerText = moves;
   finalTime.innerText = timeContainer.innerText;
   modal.classList.remove('hidden');
+  audioWin.play();
 
   // When the user clicks on <span> (x), close the modal
   span[0].onclick = function() {
