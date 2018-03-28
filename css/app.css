@@ -125,7 +125,7 @@ h1 {
 
 #timer {
     display: inline-block;
-    padding-left: 60px;
+    padding-left: 40px;
 }
 
 /*
@@ -233,18 +233,18 @@ h1 {
 
  @media screen and (max-width: 700px) {
    .score-panel {
-     width: 310px;
+     width: 290px;
    }
 
    .deck {
-     width: 320px;
+     width: 300px;
      min-height: 320px;
-     padding: 6px;
+     padding: 8px;
    }
 
    .deck .card {
      width: 65px;
      height: 65px;
-     margin: 6px;
+     margin: 2px;
    }
  }
