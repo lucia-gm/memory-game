@@ -94,7 +94,7 @@ function startTimer() {
 
   timer = setInterval( function(){
     seconds.innerHTML = pad(++sec % 60);
-    minutes.innerHTML = pad(parseInt(sec / 60));
+    minutes.innerHTML = pad(parseInt(sec / 60, 10));
   }, 1000);
 }
 
