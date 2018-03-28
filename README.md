@@ -15,9 +15,8 @@ You can play [here](http://htmlpreview.github.io/?https://github.com/lucia-gm/me
 ## Rating
 The rating is base on the number of moves made to complete the game:
 - Less than 16 moves, you will receive a 3 stars.
-- Between 16 and 20, you will receive a 2 stars.
-- Between 21 and 30, you will receive a 1 stars.
-- More than 30, you will not receive any stars.
+- Between 16 and 25, you will receive a 2 stars.
+- More than 25, you will receive a 1 stars.
 
 ## Credits
 - The background image is from [Subtle Patterns](https://www.toptal.com/designers/subtlepatterns/).

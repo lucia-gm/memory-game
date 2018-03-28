@@ -171,14 +171,9 @@ function rating() {
   if (moves > 15) {
     stars[2].classList.remove('fa-star');
     stars[2].classList.add('fa-star-o');
-    if (moves > 20) {
+    if (moves > 25) {
       stars[1].classList.remove('fa-star');
       stars[1].classList.add('fa-star-o');
-      if (moves > 30) {
-        stars[0].classList.remove('fa-star');
-        stars[0].classList.add('fa-star-o');
-        // @TODO Add modal saying you lost
-      }
     }
   }
 }
