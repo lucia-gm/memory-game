@@ -1,16 +1,16 @@
 # Memory card game
 Memory game based on matching pairs of cards. This is part of the Udacity Front-End Nanodegree.
 
-[View online demo](http://htmlpreview.github.io/?https://github.com/lucia-gm/memory-game/blob/master/index.html)
+[View online demo](https://lucia-gm.github.io/memory-game/)
 
-![Preview](img/preview.gif)
+[![Preview](img/preview.gif)](https://lucia-gm.github.io/memory-game/)
 
 ## How to play
 There are 16 cards on a deck, click on the cards to reveal icons and see if you find a match.
 
 If the cards match, they will remain open. If they don't match, they will flip over. Try again until you find the 8 matches.
 
-You can play [here](http://htmlpreview.github.io/?https://github.com/lucia-gm/memory-game/blob/master/index.html).
+You can play [here](https://lucia-gm.github.io/memory-game/).
 
 ## Rating
 The rating is base on the number of moves made to complete the game:
