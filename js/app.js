@@ -194,19 +194,23 @@ function winGame() {
   audioWin.play();
 
   // When the user clicks on <span> (x), close the modal
-  span[0].onclick = function() {
-      modal.classList.add('hidden');
-  }
+  span[0].addEventListener('click', hide)
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
       if (event.target == modal) {
-          modal.classList.add('hidden');
+          hide();
       }
   }
 
   // When the user click on play again, restart the game
   play.addEventListener('click', resetGame);
+}
+
+
+// To hide the modal
+function hide() {
+    modal.classList.add('hidden');
 }
 
 
@@ -220,7 +224,7 @@ function resetGame() {
   seconds.innerText = '00';
   minutes.innerText = '00';
   clearInterval(timer);
-  modal.classList.add('hidden');
+  hide();
 
   for (let i = 0; i < cards.length; i++) {
     cards[i].classList.remove('open', 'show', 'no-click', 'match');
