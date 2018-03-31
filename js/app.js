@@ -69,7 +69,7 @@ function shuffle(array) {
 }
 
 
-// Generate a new deck with the shuffled cards and the game start
+// Generate a new deck with the shuffled cards and the game starts
 function newDeck() {
   let newIcons = shuffle(doubleIcons);
   let ul = '';
@@ -80,10 +80,10 @@ function newDeck() {
   }
 
   deck.innerHTML = ul;
-  startTimer();
 
   // if a card is clicked, flip the card
   for (let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', startTimer);
     cards[i].addEventListener('click', flipCard);
   }
 }
@@ -91,6 +91,10 @@ function newDeck() {
 
 // Initiate the timer. Function inspired by https://stackoverflow.com/questions/5517597/
 function startTimer() {
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].removeEventListener('click', startTimer);
+  }
+
   function pad(val) { return val > 9 ? val : '0' + val; }
 
   timer = setInterval( function(){
