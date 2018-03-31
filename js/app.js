@@ -3,7 +3,8 @@
  */
 
 // Resources
-const icons = ['fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars', 'fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars'];
+const icons = ['fa-leaf', 'fa-cloud', 'fa-tree', 'fa-paw', 'fa-pagelines', 'fa-bug', 'fa-sun-o', 'fa-binoculars'];
+const doubleIcons = icons.concat(icons);
 const audioClick = new Audio('sound/click.wav');
 const audioMatch = new Audio('sound/match.wav');
 const audioNoMatch = new Audio('sound/nomatch.wav');
@@ -70,7 +71,7 @@ function shuffle(array) {
 
 // Generate a new deck with the shuffled cards and the game start
 function newDeck() {
-  let newIcons = shuffle(icons);
+  let newIcons = shuffle(doubleIcons);
   let ul = '';
 
   for (let i = 0; i < newIcons.length; i++) {
