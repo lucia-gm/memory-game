@@ -1,12 +1,12 @@
 # Memory card game
-Memory game based on matching pairs of cards. This is part of the Udacity Front-End Nanodegree.
+Memory game based on matching pairs of cards.
 
 [View online demo](https://lucia-gm.github.io/memory-game/)
 
 [![Preview](img/preview.gif)](https://lucia-gm.github.io/memory-game/)
 
 ## Project Overview
-It is provided some HTML and CSS styling to display a static version of the Memory Game project. I have to convert this project from a static project to an interactive one. This required modifying the HTML and CSS files, but primarily the JavaScript file, as only the shuffle cards function is provided. I have included sound and cards animations.
+The project is part of the Udacity Front-End Nanodegree and [here](https://github.com/udacity/fend-project-memory-game) is the starter code. It is provided some HTML and CSS styling to display a static version of the Memory Game project. I have to convert this project from a static project to an interactive one. This required modifying the HTML and CSS files, but primarily the JavaScript file, as only the shuffle cards function is provided. I have included sound and cards animations.
 
 ## How to play
 There are 16 cards on a deck, click on the cards to reveal icons and see if you find a match.
@@ -22,7 +22,6 @@ The rating is base on the number of moves made to complete the game:
 - More than 25, you will receive a 1 stars.
 
 ## Credits
-- The starter code is from [Udacity](https://github.com/udacity/fend-project-memory-game).
 - The background image is from [Subtle Patterns](https://www.toptal.com/designers/subtlepatterns/).
 - The sounds are from [RCP Tones](https://rcptones.com/dev_tones/#tab-id-1).
 
